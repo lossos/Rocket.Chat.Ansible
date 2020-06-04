@@ -2,14 +2,17 @@
 sudo: required
 
 env:
-#  - distribution: debian
-#    version: buster
+  - distribution: centos
+    version: 7
   
   - distribution: debian
     version: stretch
 
   - distribution: debian
     version: jessie
+
+#  - distribution: debian
+#    version: buster
     
 #  - distribution: ubuntu
 #    version: 14.04
