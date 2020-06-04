@@ -99,18 +99,6 @@
         backrefs: no
     register: hosts_change_result
 
-  - import_tasks: mongodb.yml
-    when: (rocket_chat_include_mongodb | bool)
-    tags: mongodb
-
-  - name: Redefine rocket_chat_dep_packages to add dist specific packages if needed
-    set_fact:
-      rocket_chat_dep_packages:
-        "{{ rocket_chat_dep_packages | union(rocket_chat_dist_specific_packages) | unique }}"
-    when:
-      - (rocket_chat_dist_specific_packages is defined)
-      - (rocket_chat_dist_specific_packages)
-
   - name: Ensure Rocket.Chat dependencies are installed
     package:
       name:
@@ -126,6 +114,18 @@
     until: (dep_install_result is succeeded)
     retries: 2
     tags: packages
+
+  - import_tasks: mongodb.yml
+    when: (rocket_chat_include_mongodb | bool)
+    tags: mongodb
+
+  - name: Redefine rocket_chat_dep_packages to add dist specific packages if needed
+    set_fact:
+      rocket_chat_dep_packages:
+        "{{ rocket_chat_dep_packages | union(rocket_chat_dist_specific_packages) | unique }}"
+    when:
+      - (rocket_chat_dist_specific_packages is defined)
+      - (rocket_chat_dist_specific_packages)
 
   - import_tasks: nodejs.yml
     tags: nodejs
