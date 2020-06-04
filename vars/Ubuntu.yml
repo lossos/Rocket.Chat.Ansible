@@ -7,7 +7,7 @@ rocket_chat_dep_packages:
   - make
   - wget
   - cron
-  - gnupg
+  - gnupg2
 
 rocket_chat_mongodb_org_pkgs: true
 rocket_chat_mongodb_apt_repo: "\
